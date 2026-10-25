@@ -1,0 +1,156 @@
+{
+  "Python": {
+    "synonyms": [
+      "python",
+      "python3"
+    ],
+    "category": "technical"
+  },
+  "JavaScript": {
+    "synonyms": [
+      "javascript",
+      "js",
+      "es6"
+    ],
+    "category": "technical"
+  },
+  "React": {
+    "synonyms": [
+      "react",
+      "reactjs",
+      "react.js"
+    ],
+    "category": "technical"
+  },
+  "Node.js": {
+    "synonyms": [
+      "node",
+      "nodejs",
+      "node.js"
+    ],
+    "category": "technical"
+  },
+  "Django": {
+    "synonyms": [
+      "django"
+    ],
+    "category": "technical"
+  },
+  "Flask": {
+    "synonyms": [
+      "flask"
+    ],
+    "category": "technical"
+  },
+  "FastAPI": {
+    "synonyms": [
+      "fastapi"
+    ],
+    "category": "technical"
+  },
+  "SQL": {
+    "synonyms": [
+      "sql",
+      "mysql",
+      "postgresql",
+      "postgres",
+      "sqlite",
+      "sql server"
+    ],
+    "category": "technical"
+  },
+  "MongoDB": {
+    "synonyms": [
+      "mongodb",
+      "mongo"
+    ],
+    "category": "technical"
+  },
+  "REST API": {
+    "synonyms": [
+      "rest api",
+      "restful api",
+      "restful",
+      "rest apis",
+      "restful apis"
+    ],
+    "category": "technical"
+  },
+  "Machine Learning": {
+    "synonyms": [
+      "machine learning",
+      "ml"
+    ],
+    "category": "technical"
+  },
+  "Deep Learning": {
+    "synonyms": [
+      "deep learning"
+    ],
+    "category": "technical"
+  },
+  "TensorFlow": {
+    "synonyms": [
+      "tensorflow"
+    ],
+    "category": "tools"
+  },
+  "PyTorch": {
+    "synonyms": [
+      "pytorch"
+    ],
+    "category": "tools"
+  },
+  "Docker": {
+    "synonyms": [
+      "docker",
+      "containerization"
+    ],
+    "category": "tools"
+  },
+  "Kubernetes": {
+    "synonyms": [
+      "kubernetes",
+      "k8s"
+    ],
+    "category": "tools"
+  },
+  "Git": {
+    "synonyms": [
+      "git",
+      "github",
+      "gitlab",
+      "version control"
+    ],
+    "category": "tools"
+  },
+  "AWS": {
+    "synonyms": [
+      "aws",
+      "amazon web services"
+    ],
+    "category": "tools"
+  },
+  "Communication": {
+    "synonyms": [
+      "communication",
+      "communication skills"
+    ],
+    "category": "soft"
+  },
+  "Leadership": {
+    "synonyms": [
+      "leadership",
+      "team lead",
+      "led a team"
+    ],
+    "category": "soft"
+  },
+  "Problem Solving": {
+    "synonyms": [
+      "problem solving",
+      "problem-solving"
+    ],
+    "category": "soft"
+  }
+}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Analyzer</title>
+  <meta name="description" content="Upload a resume to see its ATS score, match it to a job description, and get writing feedback.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232447F5'/%3E%3Cpath d='M18 33l10 10 19-22' fill='none' stroke='%23FFE066' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#/" id="brand" aria-label="Resume Analyzer home">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor"/><path d="M18 33l10 10 19-22" fill="none" stroke="#FFE066" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Resume Analyzer</span>
+  </a>
+  <button class="btn btn-ghost" id="resetBtn" type="button" hidden>Analyze another resume</button>
+</header>
+
+<main id="main">
+
+  <!-- ============ 1. UPLOAD ============ -->
+  <section id="view-upload" class="view" aria-labelledby="hero-title">
+    <div class="hero">
+      <div class="hero-copy">
+        <h1 id="hero-title">See your resume the way screening software does.</h1>
+        <p class="lede">Upload a PDF or Word file. You get an ATS compatibility score, a skills match against any job description, and specific notes on your wording.</p>
+        <ul class="hero-points">
+          <li><mark>ATS check</mark> shows what a parser can and can't read.</li>
+          <li><mark>Job match</mark> lists the skills you have, and the ones you're missing.</li>
+          <li><mark>Writing notes</mark> flag weak verbs and missing numbers.</li>
+        </ul>
+      </div>
+
+      <div class="drop-wrap">
+        <label class="dropzone" id="dropzone" for="fileInput" tabindex="0">
+          <input id="fileInput" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+          <span class="drop-lines" aria-hidden="true">
+            <i style="width:46%"></i><i class="hl" style="width:72%"></i><i style="width:88%"></i><i style="width:64%"></i><i class="hl" style="width:52%"></i><i style="width:80%"></i>
+          </span>
+          <span class="drop-body">
+            <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <strong id="dropTitle">Drop your resume here</strong>
+            <span class="drop-sub">or <u>choose a file</u> &nbsp;·&nbsp; PDF or DOCX, up to 5 MB</span>
+          </span>
+        </label>
+        <p class="form-error" id="uploadError" role="alert" hidden></p>
+        <p class="fine">Your file is sent to the analyzer service you're running and saved there. Nothing is sent anywhere else.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. ANALYZING ============ -->
+  <section id="view-loading" class="view" hidden aria-live="polite">
+    <div class="loading">
+      <div class="scan-sheet" aria-hidden="true">
+        <i style="width:40%"></i><i style="width:78%"></i><i style="width:90%"></i><i style="width:66%"></i><i style="width:84%"></i><i style="width:58%"></i><i style="width:76%"></i><i style="width:48%"></i>
+        <span class="scanline"></span>
+      </div>
+      <h2 id="loadingTitle">Reading your resume…</h2>
+      <p class="muted" id="loadingSub">Extracting text, finding sections, scoring ATS checks.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. RESULTS ============ -->
+  <section id="view-results" class="view" hidden aria-label="Analysis results">
+    <div class="results">
+
+      <!-- Left: parsed document -->
+      <article class="sheet" id="sheet" aria-label="Parsed resume"></article>
+
+      <!-- Right: analysis -->
+      <section class="panel">
+        <div class="tabs" role="tablist" aria-label="Analysis sections">
+          <button role="tab" id="tab-ats" aria-controls="pane-ats" aria-selected="true" data-tab="ats">ATS check</button>
+          <button role="tab" id="tab-jd" aria-controls="pane-jd" aria-selected="false" tabindex="-1" data-tab="jd">Job match</button>
+          <button role="tab" id="tab-fb" aria-controls="pane-fb" aria-selected="false" tabindex="-1" data-tab="fb">Writing notes</button>
+        </div>
+
+        <div class="pane" id="pane-ats" role="tabpanel" aria-labelledby="tab-ats"></div>
+
+        <div class="pane" id="pane-jd" role="tabpanel" aria-labelledby="tab-jd" hidden>
+          <form id="jdForm" novalidate>
+            <label for="jdText" class="field-label">Paste the job description</label>
+            <textarea id="jdText" rows="9" placeholder="Required: Python, Django, PostgreSQL.&#10;Preferred: Docker, AWS."></textarea>
+            <p class="hint">Skills listed after the word “Preferred” are scored as nice-to-haves. Everything before it counts as required.</p>
+            <div class="form-row">
+              <button class="btn btn-primary" type="submit" id="jdSubmit">Match against this job</button>
+              <button class="btn btn-ghost" type="button" id="jdSample">Use an example</button>
+            </div>
+            <p class="form-error" id="jdError" role="alert" hidden></p>
+          </form>
+          <div id="jdResult" aria-live="polite"></div>
+        </div>
+
+        <div class="pane" id="pane-fb" role="tabpanel" aria-labelledby="tab-fb" hidden></div>
+      </section>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
